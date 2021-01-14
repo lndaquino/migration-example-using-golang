@@ -2,12 +2,14 @@ Migrate Package on Linux Installation: go get -tags 'postgres' -u github.com/gol
 See more on https://github.com/golang-migrate/migrate/blob/master/cmd/migrate/README.md
 
 Run docker-compose up -d to start database and connect with a database client (i.e, Dbeaver etc)
+After run: docker-compose exec app bash (you´ll be in container)
+Executing all migrations: migrate -database ${POSTGRESQL_URL} -path db/migrations up
 
-Run: export POSTGRESQL_URL='postgres://postgres:root@localhost:5432/teste?sslmode=disable'
+If env variable isn´t set run: export POSTGRESQL_URL='postgres://postgres:root@db:5432/teste?sslmode=disable' 
 
-Follow migrate tutorial
+More infos
 https://github.com/golang-migrate/migrate/blob/master/database/postgres/TUTORIAL.md
 
 On error:
 migrate -path PATH_TO_YOUR_MIGRATIONS -database YOUR_DATABASE_URL force VERSION
-- choose previous version of errored version. After that your database won´t be dirty and you can rerun up and down migrations 
+- choose previous version of errored version (dirty flat true in schema_migrations table). After that your database won´t be dirty and you can rerun up and down migrations 

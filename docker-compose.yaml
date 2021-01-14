@@ -13,3 +13,14 @@ services:
       - POSTGRES_DB=teste
     ports:
       - "5432:5432"
+
+  app: 
+    build: .
+    container_name: app
+    tty: true
+    volumes:
+      - .:/src
+    ports:
+      - "8888:8888"
+    environment:
+      - POSTGRESQL_URL=postgres://postgres:root@db:5432/teste?sslmode=disable
